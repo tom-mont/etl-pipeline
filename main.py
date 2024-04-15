@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def get_movie_data(movie_name, api_key):
+def get_movie_data(movie_name, api_key, url):
     """
     Retrieves movie data from OMDb API for a given movie ID.
 
@@ -17,12 +17,8 @@ def get_movie_data(movie_name, api_key):
             None otherwise.
     """
 
-    # Base URL for OMDb API
-    omdb_url = os.getenv('OMDb_URL')
-    omdb_api_key = os.getenv('OMDb_API_KEY')
-
     # Build the API request URL
-    url = f"{omdb_url}?apikey={api_key}t={movie_name}"
+    url = f"{url}?apikey={api_key}&t={movie_name}"
 
     # Send GET request to the API
     response = requests.get(url)
@@ -44,9 +40,12 @@ def get_movie_data(movie_name, api_key):
 
 
 if __name__ == "__main__":
-    omdb_api_key = os.getenv('OMDb_API_KEY')
+    # pip install requirements.txt
+
+    omdb_api_key = os.getenv("OMDb_API_KEY")
+    omdb_url = os.getenv("OMDBb_URL")
     movie_name = "Dune"  # Example movie ID for The Dark Knight
-    movie_data = get_movie_data(movie_name, omdb_api_key)
+    movie_data = get_movie_data(movie_name, omdb_api_key, omdb_url)
     if movie_data:
         print(f"Title: {movie_data['Title']}")
         print(f"Release Year: {movie_data['Year']}")
