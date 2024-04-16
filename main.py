@@ -39,6 +39,23 @@ def get_movie_data(movie_name, api_key, url):
     return None
 
 
+def execute_query(connection, query):
+    cursor = connection.cursor()
+    try:
+        cursor.execute(query)
+        connection.commit()
+        print("Query successful")
+    except Error as err:
+        print(f"Error:`{err}`")
+
+
+create_movie_table = """
+    CREATE TABLE movie (
+        title VARCHAR(20) PRIMARY KEY,
+        year INT NOT NULL
+    );
+"""
+
 if __name__ == "__main__":
     # pip install requirements.txt
 
