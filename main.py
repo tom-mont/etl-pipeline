@@ -1,4 +1,4 @@
-# from sqlDb import *
+from sqlDb import *
 from readApi import *
 import os
 from dotenv import load_dotenv
@@ -14,6 +14,22 @@ if __name__ == "__main__":
     if movie_data:
         print(f"Title: {movie_data['Title']}")
         print(f"Release Year: {movie_data['Year']}")
-        # Access other data points from the dictionary
+
+        # Create table
+        create_movie_table = """
+            CREATE TABLE movie (
+                title VARCHAR(20) PRIMARY KEY,
+                year INT NOT NULL
+            );
+            """
+        # Populate movie table
+        pop_movie = f"""
+            INSERT INTO movie VALUES
+            ('{movie_data['Title']}', '{movie_data['Year']}');
+        """
+
+        connection = create_server_connection("localhost", "root", "password")
+        execute_query(connection, create_movie_table)
+        execute_query(connection, pop_movie)
     else:
         print("Failed to retrieve movie data.")

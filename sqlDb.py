@@ -27,21 +27,3 @@ def execute_query(connection, query):
         print("Query successful")
     except Error as err:
         print(f"Error:`{err}`")
-
-
-# Create table
-create_movie_table = """
-    CREATE TABLE movie (
-        title VARCHAR(20) PRIMARY KEY,
-        year INT NOT NULL
-    );
-"""
-
-# Populate movie table
-pop_movie = """
-    INSERT INTO movie VALUES
-    ('Dune', '2015');
-"""
-
-connection = create_server_connection("localhost", "root", "password")
-execute_query(connection, pop_movie)
